@@ -79,3 +79,27 @@
 ### Extensions
 - **2a.** No posts exist yet: system shows an explicit empty state, not a blank screen (a real requirement, not a cosmetic afterthought). An untested empty state is a common source of embarrassing production bugs.
 - **2b.** A requested page is beyond the available data: system returns an empty page, not an error. File: docs/requirements/analysis-model.md 
+
+## US-05: Comment on a Post
+
+### Overview
+- **Primary Actor** Reader
+- **Preconditions:** The reader is viewing a published blog post. The reader must be authenticated to submit a comment.
+- **Postconditions:** TThe reader's comment is saved and displayed under the blog post.
+
+### Main Success Scenario
+1. The reader navigates to a published blog post.
+2. The system displays the post and its existing comments.
+3. The reader selects the option to add a comment.
+4. If the reader is not authenticated, the system prompts the reader to log in.
+5. The reader enters the comment text.
+6. The reader submits the comment.
+7. The system validates the comment.
+8. The system saves the comment and associates it with the reader and the blog post.
+9. The system displays the new comment in the post's comment section.
+
+### Extensions
+- **4a.** Reader is not authenticated. The system directs the reader to log in before allowing the comment to be submitted.
+- **7a.** Comment is empty. The system rejects the submission and informs the reader that a comment cannot be empty.
+- **7b.** Comment exceeds the maximum allowed length. The system rejects the submission and informs the reader of the maximum comment length.
+- **8a.** Comment cannot be saved. The system informs the reader that the comment could not be submitted and allows them to try again.
