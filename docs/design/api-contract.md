@@ -30,4 +30,4 @@ Success: 201 { comment: CommentPublic }
 
 Errors:
 400 INVALID_COMMENT — "Comment cannot be empty."
-404 POST_NOT_FOUND — "Post not found."
+404 POST_NOT_FOUND — "Post not found." 
