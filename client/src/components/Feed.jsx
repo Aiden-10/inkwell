@@ -22,11 +22,11 @@ export function Feed() {
         </div>
         );
     }
-return (
-<ul className="space-y-6">
-{posts.map((post) => (
-<PostCard key={post.id} post={post} />
-))}
-</ul>
-);
+    return (
+        <ul className="space-y-6">
+            {posts.map((post) => (
+                <PostCard key={post.id} post={post} />
+            ))}
+        </ul>
+    );
 }
