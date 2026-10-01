@@ -28,4 +28,11 @@ router.get("/posts", async (req, res, next) => {
         next(err);
     }
 });
+router.get("/posts", async (req, res) => {
+    const { page = 1, search } = req.query;
+    const result = search
+    ? await PostService.search({ query: search, page: Number(page) })
+    : await PostService.listPublished({ page: Number(page) });
+    res.status(200).json(result);
+});
 export default router;
