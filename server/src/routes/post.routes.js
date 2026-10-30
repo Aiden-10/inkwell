@@ -1,26 +1,20 @@
 import { Router } from "express";
 import { PostService } from "../services/post.service.js";
+import { requireAuth } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-router.post("/posts", async (req, res) => {
+router.post("/posts", requireAuth, async (req, res, next) => {
     try {
-        const { authorId, title, body } = req.body;
-
+        // Derive authorId from the verified JWT, not the request body.
         const post = await PostService.publish({
-            authorId,
-            title,
-            body
+            ...req.body,
+            authorId: req.user.id
         });
 
         res.status(201).json(post);
     } catch (err) {
-        res.status(400).json({
-            error: {
-                code: err.code || "VALIDATION_ERROR",
-                message: err.message
-            },
-        });
+        next(err);
     }
 });
 
