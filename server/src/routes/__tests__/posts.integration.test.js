@@ -92,3 +92,18 @@ test("registering a user and logging in works end to end (US-01, US-02 validatio
     expect(loginRes.body.accessToken).toBeDefined();
     expect(loginRes.body.user.id).toBe(registerRes.body.user.id);
 });
+
+test("rejects oversized pageSize requests", async () => {
+    const response = await request(app)
+        .get("/api/posts?page=1&pageSize=100000");
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_PAGINATION");
+});
+
+test("accepts pageSize values within the allowed limit", async () => {
+    const response = await request(app)
+        .get("/api/posts?page=1&pageSize=100");
+
+    expect(response.status).toBe(200);
+});
