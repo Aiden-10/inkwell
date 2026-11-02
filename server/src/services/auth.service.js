@@ -7,6 +7,7 @@ import bcrypt from "bcrypt";
 import { UserRepository } from "../repositories/user.repository.js";
 import { assertNonEmpty, ValidationError } from "../utils/validation.js";
 import { TokenService } from "./token.service.js"; 
+import { logger } from "../lib/logger.js";
 
 class EmailAlreadyRegisteredError extends Error {}
 class WeakPasswordError extends Error {}
@@ -53,10 +54,12 @@ export const AuthService = {
     },
     async login({ email, password }) {
         const user = await UserRepository.findByEmail(email);
-        if (!user) {
-            throw new InvalidCredentialsError();
+        if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
+                // A09: Log failed login attempts for security monitoring.
+                logger.warn({ event: "auth.login.failed", email }, "Failed login attempt");
+                throw new InvalidCredentialsError();
         }
-
+        
         const matches = await bcrypt.compare(password, user.passwordHash);
         
         if (!matches) {

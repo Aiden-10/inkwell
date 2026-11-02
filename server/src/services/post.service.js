@@ -7,6 +7,8 @@ import { EventBus } from "../events/event-bus.js";
 
 const searchStrategy = SubstringSearchStrategy; // swap this line to change search behavior system-wide
 
+
+
 export const PostService = {
     async publish({ authorId, title, body, tagNames = [] }) {
         assertNonEmpty(title, "title", "MISSING_TITLE");
@@ -30,7 +32,9 @@ export const PostService = {
 
         return post;
     },
-
+    async getById(id) {
+        return PostRepository.findById(id);
+    },
     async listPublished({ page = 1, pageSize = 10 }) {
         const { posts, hasMore } = await PostRepository.findPublished({
             page,
@@ -39,7 +43,9 @@ export const PostService = {
 
         return { posts, page, hasMore };
     },
-
+    async delete(id) {
+        return PostRepository.deleteById(id);
+    },
     async search({ query, page = 1, pageSize = 10 }) {
         return searchStrategy.search(query, { page, pageSize });
     },

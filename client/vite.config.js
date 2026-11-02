@@ -10,7 +10,7 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
-    glboals: true,
+    globals: true,
     setupFiles: ["./src/test-setup.js"],
   }
 });

@@ -10,4 +10,6 @@
  */
 export type * from './models/User.ts'
 export type * from './models/Post.ts'
+export type * from './models/Tag.ts'
+export type * from './models/PostTag.ts'
 export type * from './commonInputTypes.ts'

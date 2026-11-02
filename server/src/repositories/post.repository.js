@@ -53,6 +53,12 @@ export const PostRepository = {
         };
     },
 
+    findById(id) {
+        return prisma.post.findUnique({ where: { id } });
+    },
+    deleteById(id) {
+        return prisma.post.delete({ where: { id } });
+    },
     async searchPublished({ query, page, pageSize }) {
         const where = {
             status: "PUBLISHED",
