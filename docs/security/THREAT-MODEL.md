@@ -25,6 +25,7 @@
 - 2026 — Lecture 15: Added allowlist-based user DTO to prevent sensitive field leakage (Section 1.4)
 - 2026 — Lecture 15: Added rate limiting to authentication endpoints (Section 1.5)
 - 2026 — Lecture 15: Verified stored-XSS resistance with a regression test (Section 1.6)
+- 2026 — Lecture 15: Added maximum pageSize validation (100) to prevent excessive database queries and verified the limit with regression tests.
 
 ### Security Measurement Baseline
 
